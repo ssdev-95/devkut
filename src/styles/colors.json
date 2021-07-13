@@ -1,0 +1,23 @@
+{
+  "white": "#ffffff",
+  "background": {
+    "primary": "#D9E6F6",
+    "secondary": "#F1F9FE"
+  },
+  "text": {
+    "primary": "#2E7BB4",
+    "secondary": "#388BB0",
+    "tertiary": "#2F4A71"
+  },
+  "gray": {
+    "primary": "#333333",
+    "secondary": "#5a5a5a",
+    "tertiary": "#999999",
+    "quaternary": "#c5c6ca",
+    "ternary": "#f4f4f4"
+  },
+  "element": {
+    "primary": "#6F92BB",
+    "secondary": "#5579A1"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "extends": "next",
+  "ecmaFeatures": {  
+    "jsx": true,
+    "spread": true
+  }
+}
