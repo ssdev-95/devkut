@@ -1,8 +1,8 @@
-import { useState } from 'react'
-import { Image } from 'next/image'
+/* eslint-disable @next/next/no-img-element */
 import { Container } from '@/components/Container'
+import { Menu } from '@/components/Menu'
 import { ProfileContainer } from '@/components/Profile'
-import { Main } from '@/styles/home'
+import { Actions, Main, Stat, StatsWrapper, MHeader, BoxContainer, Box } from '@/styles/home'
 
 import {Favorite} from '@material-ui/icons'
 import {Star} from '@material-ui/icons'
@@ -13,121 +13,138 @@ import {PhotoCamera} from '@material-ui/icons'
 import {Videocam} from '@material-ui/icons'
 import {Bookmark} from '@material-ui/icons'
 
-export default function Home() {
-  const user = {
-    name: 'xSallus',
-    avatar: 'https://github.com/xSallus.png',
-    counts: {
-      recados: 0,
-      photos: 0,
-      videos: 0,
-      fans: 0,
-      msgs: 0
-    }
-  }
+import { useDevkut } from '@/hooks'
 
-  const [communities, setCommunities] = useState([])
-  const [friends, setFriends] = useState([])
+export default function Home() {
+  const { user, friends, communities } = useDevkut()
 
   return (
     <Main>
+      <Menu />
       <div className="profileArea">
-        <ProfileContainer user={user} />
+        <ProfileContainer />
       </div>
       <div className="contentArea">
         <Container>
-          <h1>{`Welcome, ${user.name}`}</h1>
-          <p><span>Today&#39;s luck: </span>The best future prophet is the past.</p>
+          <MHeader>
+            <h1>{`Welcome, ${user.name}`}</h1>
+            <p><span>Today&#39;s luck: </span>The best future prophet is the past.</p>
+          </MHeader>
           <div className="statsArea">
-            <div>
+            <Stat>
               <p>Recados</p>
-              <div className="wrapper" >
-                <span>{user.counts.recados}</span>
+              <StatsWrapper>
                 <MenuBook />
-              </div>
-            </div>
-            <div>
+                <span>{user.counts.recados}</span>
+              </StatsWrapper>
+            </Stat>
+            <Stat>
               <p>Photos</p>
-              <div className="wrapper" >
-                <span>{user.counts.photos}</span>
+              <StatsWrapper>
                 <PhotoCamera />
-              </div>
-            </div>
-            <div>
+                <span>{user.counts.photos}</span>
+              </StatsWrapper>
+            </Stat>
+            <Stat>
               <p>Videos</p>
-              <div className="wrapper" >
-                <span>{user.counts.videos}</span>
+              <StatsWrapper>
                 <Videocam />
-              </div>
-            </div>
-            <div>
+                <span>{user.counts.videos}</span>
+              </StatsWrapper>
+            </Stat>
+            <Stat>
               <p>Fans</p>
-              <div className="wrapper" >
-                <span>{user.counts.fans}</span>
+              <StatsWrapper>
                 <Star />
-              </div>
-            </div>
-            <div>
+                <span>{user.counts.fans}</span>
+              </StatsWrapper>
+            </Stat>
+            <Stat>
               <p>Messages</p>
-              <div className="wrapper" >
-                <span>{user.counts.msgs}</span>
+              <StatsWrapper>
                 <Email />
-              </div>
-            </div>
-            <div>
+                <span>{user.counts.msgs}</span>
+              </StatsWrapper>
+            </Stat>
+            <Stat>
               <p>Trusty</p>
-              <div>
-                <EmojiEmotions />
-                <EmojiEmotions />
-                <EmojiEmotions />
-              </div>
-            </div>
-            <div>
+              <StatsWrapper>
+                <EmojiEmotions className={user.stats.trusty===0?'':'active'} />
+                <EmojiEmotions className={user.stats.trusty<2?'':'active'} />
+                <EmojiEmotions className={user.stats.trusty>2?'active':''} />
+              </StatsWrapper>
+            </Stat>
+            <Stat>
               <p>Nice</p>
-              <div className="wrapper">
-                <Bookmark />
-                <Bookmark />
-                <Bookmark />
-              </div>
-            </div>
-            <div>
+              <StatsWrapper>
+                <Bookmark  className={user.stats.nice===0?'':'active'} />
+                <Bookmark  className={user.stats.nice===0?'':'active'} />
+                <Bookmark  className={user.stats.nice===0?'':'active'} />
+              </StatsWrapper>
+            </Stat>
+            <Stat>
               <p>Sexy</p>
-              <div className="wrapper">
-                <Favorite />
-                <Favorite />
-                <Favorite />
-              </div>
-            </div>
+              <StatsWrapper>
+                <Favorite className={user.stats.sexy===0?'':'active'} />
+                <Favorite className={user.stats.sexy===0?'':'active'} />
+                <Favorite className={user.stats.sexy===0?'':'active'} />
+              </StatsWrapper>
+            </Stat>
           </div>
+        </Container>
+        <Container>
+          <Actions>
+            <h3>What you wanna do?</h3>
+            <div>
+              <button>
+                <span>Create comunity</span>
+              </button>
+              <button>
+                <span>Write deposition</span>
+              </button>
+              <button>
+                <span>Leave a scrap</span>
+              </button>
+            </div>
+            <form>
+              <input type="text" placeholder="What will be the community name?" />
+            </form>
+          </Actions>
         </Container>
       </div>
       <div className="communityArea">
         <Container>
           <section>
-            <h3>Communities</h3>
-            <div>
+            <h3>Communities&nbsp;<span>&#40;{communities.length}&#41;</span></h3>
+            <BoxContainer>
               {
                 (communities.length>0) ? communities.map(comm=>(
-                  <Image key={comm.name} src={comm.pic} alt={comm.name} />
+                  <Box key={comm.id}>
+                    <img src={comm.pic} alt={comm.title} />
+                    <span>{comm.title}</span>
+                  </Box>
                 )) : (
                   <p>No Communities yet&nbsp;&nbsp;&#59;&nbsp;&nbsp;&#95;&nbsp;&#59;&#41;</p>
                 )
               }
-            </div>
+            </BoxContainer>
           </section>
         </Container>
         <Container>
           <section>
-            <h3>Communities</h3>
-            <div>
+            <h3>Friends&nbsp;<span>&#40;{friends.length}&#41;</span></h3>
+            <BoxContainer>
               {
                 (friends.length>0) ? friends.map(fulano=>(
-                  <Image key={fulano.name} src={fulano.pic} alt={fulano.name} />
+                  <Box key={fulano.name}>
+                    <img src={fulano.avatar} alt={fulano.name} />
+                    <span>{`@${fulano.nick}`}</span>
+                  </Box>
                 )) : (
                   <p>No friends yet&nbsp;&nbsp;&#59;&nbsp;&nbsp;&#95;&nbsp;&#59;&#41;</p>
                 )
               }
-            </div>
+            </BoxContainer>
           </section>
         </Container>
       </div>

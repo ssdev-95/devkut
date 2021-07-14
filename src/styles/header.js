@@ -6,11 +6,34 @@ const Nav = styled.nav`
     width: 100%;
     height: 10vh;
     background: #5C9ECF;
+
+    .to-show {
+        display: none;
+        height: 90%;
+
+        box {
+            color: rgba(0,0,0,0);
+            height: 8px;
+            width: 32px;
+            background: #f0f2f5;
+            border-radius: 999;
+        }
+    }
+
+    @media(max-width: 860px) {
+        .to-hide {
+            display: none;
+        }
+
+        .to-show {
+            display: block;
+        }
+    }
 `
 
 const Wrapper = styled.header`
     max-width: 95%;
-    width: 1024px;
+    width: 1152px;
     height: 100%;
     margin: 0 auto;
     display: flex;
