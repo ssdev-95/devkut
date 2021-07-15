@@ -19,12 +19,12 @@ function ProfileContainer() {
 
   return (
     <Container>
-      <Avatar src={user.avatar} alt={`${user.name} picture`} />
+      <Avatar src={user?.avatar} alt={`${user?.name} picture`} />
       <User>
-        <h3>{`@${user.nick}`}</h3>
-        <p>{user.gender}</p>
-        <p>{user.civil}</p>
-        <p>{user.from}</p>
+        <h3>{`@${user?.nick}`}</h3>
+        <p>{user?.gender}</p>
+        <p>{user?.civil}</p>
+        <p>{user?.from}</p>
       </User>
       <UserInfos>
         <Wrapper>

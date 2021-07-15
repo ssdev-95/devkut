@@ -2,12 +2,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Logo from '@/icons/logo.svg'
-import { Nav, Wrapper } from '@/styles/header'
+import { Nav, Wrapper, Burger, Rect } from '@/styles/header'
 import { Search } from '@material-ui/icons'
 import  { useDevkut } from '@/hooks'
 
 function Header() {
-    const  { user, isOpen, setIsOpen } = useDevkut()
+    const  { user, isOpen, toggleMenu } = useDevkut()
 
     return (
         <Nav>
@@ -42,11 +42,11 @@ function Header() {
                         <input type="text" placeholder="Search on Devkut" />
                     </label>
                 </div>
-                <div onClick={()=>setIsOpen(!isOpen)} className="to-show">
-                   <span className={isOpen?'active box':'box'}>.</span>
-                   <span className={isOpen?'active box':'box'}>.</span>
-                   <span className={isOpen?'active box':'box'}>.</span>
-                </div>
+                <Burger onClick={toggleMenu} >
+                   <Rect className={isOpen?'active':''}>.</Rect>
+                   <Rect className={isOpen?'active':''}>.</Rect>
+                   <Rect className={isOpen?'active':''}>.</Rect>
+                </Burger>
             </Wrapper>
         </Nav>
     )

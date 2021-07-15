@@ -7,26 +7,9 @@ const Nav = styled.nav`
     height: 10vh;
     background: #5C9ECF;
 
-    .to-show {
-        display: none;
-        height: 90%;
-
-        box {
-            color: rgba(0,0,0,0);
-            height: 8px;
-            width: 32px;
-            background: #f0f2f5;
-            border-radius: 999;
-        }
-    }
-
     @media(max-width: 860px) {
         .to-hide {
             display: none;
-        }
-
-        .to-show {
-            display: block;
         }
     }
 `
@@ -101,4 +84,41 @@ const Wrapper = styled.header`
     }
 `
 
-export { Nav, Wrapper }
+const Burger = styled.div`
+    width: 40px;
+    height: 40px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @media(min-width: 860px) {
+        display: none !important;
+    }
+`
+
+const Rect = styled.span`
+    font-size: 0;
+    line-height: 0;
+    height: 16px;
+    width: 100%;
+    background: #f0f2f5;
+    border-radius: 999px;
+    transform-origin: 0 50%;
+    transition: all .25s ease;
+
+    &.active {
+        &:first-child {
+            transform: rotate(45deg) translate(7px, -1px);
+        }
+
+        &:nth-child(2) {
+            opacity: 0;
+        }
+
+        &:last-child {
+            transform: rotate(-45deg) translate(7px, 1px);
+        }
+    }
+`
+
+export { Nav, Wrapper, Burger, Rect }

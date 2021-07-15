@@ -1,13 +1,12 @@
-import { useState } from 'react'
-import { useDevkut } from '@/hooks'
+// import { useState } from 'react'
+// import { useDevkut } from '@/hooks'
 import { ProfileContainer } from '@/components/Profile'
 import { MenuWrapper } from '@/styles/menu'
 
-function Menu(props) {
-    const { isOpen } = useDevkut()
+function Menu() {
 
     return (
-        <MenuWrapper {...props} className={isOpen?'':'hidden'}>
+        <MenuWrapper>
             <ProfileContainer />
         </MenuWrapper>
     )

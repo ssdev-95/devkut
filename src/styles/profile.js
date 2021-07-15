@@ -3,6 +3,8 @@ import colors from './colors.json'
 
 const Avatar = styled.img`
     border-radius: 999px;
+    width: 80%;
+    margin: 1rem 10%;
 `
 
 const User = styled.div`

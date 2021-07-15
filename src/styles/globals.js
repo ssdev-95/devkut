@@ -30,6 +30,24 @@ const GlobalStyle = createGlobalStyle`
     align-items: center;
     justify-content: flex-start;
   }
+
+  @keyframes toggle-menu {
+      0% {
+          margin-left: -100vw;
+      }
+      25% {
+          margin-left: -75vw;
+      }
+      50% {
+          margin-left: -50vw;
+      }
+      75% {
+          margin-left: -25vw;
+      }
+      100% {
+          margin-left: 0;
+      }
+}
 `
 
 export { theme, GlobalStyle }
