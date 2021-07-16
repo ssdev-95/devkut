@@ -13,7 +13,7 @@ import { Bookmark } from "@material-ui/icons";
 import { useDevkut } from "@/hooks";
 
 function ContentContainer() {
-  const { user, friends, communities, isOpen } = useDevkut();
+  const { user, communities, setCommunities } = useDevkut();
 
   return (
     <>
@@ -95,19 +95,46 @@ function ContentContainer() {
       <Container>
         <Actions>
           <h3>What you wanna do</h3>
-          <div>
-            <button>
-              <span>Create comunity</span>
-            </button>
-            <button>
-              <span>Write deposition</span>
-            </button>
-            <button>
-              <span>Leave a scrap</span>
-            </button>
-          </div>
-          <form>
-            <input type="text" placeholder="What will be the community name" />
+          <form onSubmit={(e)=> {
+            e.preventDefault()
+
+            const communityData = new FormData(e.target)
+
+            const community = {
+              title: communityData.get('title'),
+              pictureUrl: communityData.get('pictureUrl')
+            }
+
+            fetch('/api/communities', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(community)
+            }).then(async (res) => {
+              const {community} = await res.json()
+              // console.log(community)
+              setCommunities([...communities, {
+                id: community.id,
+                title: community.title,
+                picture: community.pictureUrl
+              }])
+            })
+
+          }} >
+            <div className="actionButtons">
+              <button>
+                <span>Create comunity</span>
+              </button>
+              <button>
+                <span>Write deposition</span>
+              </button>
+              <button>
+                <span>Leave a scrap</span>
+              </button>
+            </div>
+            <input type="text" name="title" placeholder="What will be the community name." />
+            <input type="text" name="pictureUrl" placeholder="Insert picture url for the new community." />
           </form>
         </Actions>
       </Container>

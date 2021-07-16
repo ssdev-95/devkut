@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import colors from './colors.json'
 
 const Avatar = styled.img`
-    border-radius: 999px;
+    border-radius: 8px;
     width: 80%;
     margin: 1rem 10%;
 `

@@ -64,7 +64,7 @@ function DevkutProvider({children}) {
         })
     }
 
-    function retrieveUserData() {
+    function retrieveUserData(username) {
         const user_url = process.env.NEXT_PUBLIC_USER_URL
         
         let temp_user = {
@@ -84,7 +84,7 @@ function DevkutProvider({children}) {
             }
         }
 
-        fetch(user_url)
+        fetch(`${user_url}/${username}`)
         .then(res=>{ return res.json() })
         .then(ponse=>{
             setUser({
@@ -97,41 +97,50 @@ function DevkutProvider({children}) {
             })
         })
 
-        retrieveFriendsData(user_url)
+        retrieveFriendsData(`${user_url}/${username}`)
     }
 
     function retrieveCommunityData() {
-        const url = process.env.NEXT_PUBLIC_CMS_BASE_URL
-        const token = process.env.NEXT_PUBLIC_CMS_TOKEN
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Authorization': token,
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({ "query": `query {
-                allCommunities {
-                  id
-                  title
-                  pictureUrl
-                }
-            }` })
-        })
-        .then(res=>res.json())
-        .then(ponse=>{
-            const { allCommunities } = ponse.data
-            setCommunities(allCommunities.map(comm=>({
+        // const url = process.env.NEXT_PUBLIC_CMS_BASE_URL
+        // const token = process.env.NEXT_PUBLIC_CMS_TOKEN
+        // fetch(url, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Authorization': token,
+        //         'Content-Type': 'application/json',
+        //         'Accept': 'application/json'
+        //     },
+        //     body: JSON.stringify({ "query": `query {
+        //         allCommunities {
+        //           id
+        //           title
+        //           pictureUrl
+        //         }
+        //     }` })
+        // })
+        // .then(res=>res.json())
+        // .then(ponse=>{
+        //     const { allCommunities } = ponse.data
+        //     setCommunities(allCommunities.map(comm=>({
+        //         id: comm.id,
+        //         picture: comm.pictureUrl,
+        //         title: comm.title
+        //     })))
+        // })
+
+        fetch('/api/communities')
+        .then(async (res) => {
+            const { communities } = await res.json()
+             setCommunities(communities.map(comm=>({
                 id: comm.id,
                 picture: comm.pictureUrl,
                 title: comm.title
             })))
         })
-        // console.log(`${url}/${token}`)
     }
 
     useEffect(()=>{
-        retrieveUserData()
+        retrieveUserData('xSallus')
         retrieveCommunityData()
     }, [])
 
@@ -140,8 +149,10 @@ function DevkutProvider({children}) {
             user,
             friends,
             communities,
+            setCommunities,
             isOpen,
-            toggleMenu
+            toggleMenu,
+            retrieveUserData
         }}>
             {children}
         </DevkutContext.Provider>

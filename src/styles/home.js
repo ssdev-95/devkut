@@ -165,7 +165,7 @@ const Actions = styled.div`
         height: 2rem;
     }
 
-    div {
+    .actionButtons {
         display: flex;
         width: 100%;
         gap: 4px;
@@ -194,14 +194,24 @@ const Actions = styled.div`
         }
     }
 
-    form input {
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+        justify-content: center;
         width: 100%;
-        height: 2rem;
-        border-radius: 999px;
-        border: 0;
-        background:#f0f0f0;
-        color: ${colors.gray.tertiary};
-        padding: 0 1rem;
+        height: auto;
+
+        input  {
+            width: 100%;
+            height: 2rem;
+            border-radius: 999px;
+            border: 0;
+            background:#f0f0f0;
+            color: ${colors.gray.tertiary};
+            padding: 0 1rem;
+        }
     }
 `
 

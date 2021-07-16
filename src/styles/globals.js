@@ -8,6 +8,22 @@ const theme = {
 }
 
 const GlobalStyle = createGlobalStyle`
+  :root {
+    --backgroundPrimary: #D9E6F6;
+    --backgroundSecondary: #F1F9FE;
+    --backgroundTertiary: #FFFFFF;
+    --backgroundQuarternary: #BBCDE8;
+    --colorPrimary: #2E7BB4;
+    --colorSecondary: #388BB0;
+    --colorTertiary: #2F4A71;
+    --colorQuarternary: #D81D99;
+    --textPrimaryColor: #333333;
+    --textSecondaryColor: #FFFFFF;
+    --textTertiaryColor: #5A5A5A;
+    --textQuarternaryColor: #C5C6CA;
+    --commonRadius: 8px;
+  }
+  
   *, html, body {
     margin: 0;
     padding: 0;
