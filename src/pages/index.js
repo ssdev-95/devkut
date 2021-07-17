@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-// import { useEffect } from 'react'
-// import  { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import nookies from 'nookies'
 import jwt from 'jsonwebtoken'
 import { Menu } from '@/components/Menu'
@@ -11,9 +10,13 @@ import { Main } from '@/styles/home'
 
 import { useDevkut } from '@/hooks'
 
-export default function Home(props) {
-  const { isOpen } = useDevkut()
-  // const router = useRouter()
+export default function Home({githubUser}) {
+  const { isOpen,retrieveUserData, retrieveCommunityData } = useDevkut()
+
+  useEffect(()=>{
+    retrieveUserData(githubUser)
+    retrieveCommunityData()
+  }, [])
 
   return (
     <Main>
@@ -40,10 +43,21 @@ export default function Home(props) {
 
 export async function getServerSideProps(ctx) {
   const {AUTH_TOKEN} = nookies.get(ctx, 'AUTH_TOKEN')
-  const {githubuser} = jwt.decode(AUTH_TOKEN)
-  console.log('token: ',githubuser)
+  const decoded = jwt.decode(AUTH_TOKEN)
+  const githubUser = decoded?.githubUser
+
+  if (!githubUser) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    }
+  }
 
   return {
-    props: { }
+    props: {
+      githubUser
+    }
   }
 }

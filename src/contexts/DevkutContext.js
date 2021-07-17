@@ -1,5 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useState } from 'react'
+import { useRouter } from 'next/router'
+import nookies from 'nookies'
 
 const DevkutContext = createContext({})
 
@@ -24,6 +26,8 @@ function DevkutProvider({children}) {
             sexy: 0
         }
     }
+
+    const router = useRouter()
 
     const [user, setUser] = useState(initialState)
     
@@ -139,10 +143,10 @@ function DevkutProvider({children}) {
         })
     }
 
-    useEffect(()=>{
-        retrieveUserData('xSallus')
-        retrieveCommunityData()
-    }, [])
+    function handleLogout() {
+        nookies.destroy(null, 'AUTH_TOKEN')
+        router.push('/')
+    }
 
     return (
         <DevkutContext.Provider value={{
@@ -152,7 +156,9 @@ function DevkutProvider({children}) {
             setCommunities,
             isOpen,
             toggleMenu,
-            retrieveUserData
+            retrieveUserData,
+            retrieveCommunityData,
+            handleLogout
         }}>
             {children}
         </DevkutContext.Provider>

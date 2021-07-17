@@ -7,7 +7,7 @@ import { Search } from '@material-ui/icons'
 import  { useDevkut } from '@/hooks'
 
 function Header() {
-    const  { user, isOpen, toggleMenu } = useDevkut()
+    const  { user, isOpen, toggleMenu, handleLogout } = useDevkut()
 
     return (
         <Nav>
@@ -34,7 +34,7 @@ function Header() {
                 </div>
                 <div className="to-hide" >
                     <span>{`@${user.nick}`}</span>
-                    <button>exit</button>
+                    <button onClick={handleLogout}>exit</button>
                     <label>
                         <button>
                             <Search />
