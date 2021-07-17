@@ -33,7 +33,7 @@ export default function LoginPage() {
                   headers: {
                     'Content-Type': 'application/json'
                   },
-                  body: JSON.stringify({githubuser: githubUser})
+                  body: JSON.stringify({githubUser: githubUser})
                 }).then(async (res) => {
                   const { token } = await res.json()
                   
